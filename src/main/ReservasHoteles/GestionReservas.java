@@ -1,0 +1,185 @@
+package main.ReservasHoteles;
+
+import java.util.ArrayList;
+
+/*
+¿Qué hace esta clase?
+
+Es la encargada de manejar la lista de reservas:
+
+Añadir
+
+Buscar
+
+Cancelar
+
+Listar 
+*/
+public class GestionReservas {
+    /*
+     * -¿Por qué necesitamos este atributo?
+     * 
+     * Porque el programa debe:
+     * 
+     * Guardar reservas
+     * 
+     * Buscar reservas
+     * 
+     * Eliminar reservas
+     * 
+     * Listar reservas
+     * 
+     * -Todas estas operaciones necesitan una estructura donde almacenar los
+     * datos.
+     * 
+     * -La estructura correcta es un ArrayList porque:
+     * 
+     * El número de reservas no es fijo
+     * 
+     * Se pueden añadir y eliminar fácilmente
+     * 
+     * Permite recorrer los elementos
+     */
+    private ArrayList<Reserva> reservas;
+    /*
+     * He añadido private:
+     * 
+     * Mejora encapsulación
+     * 
+     * Es buena práctica
+     * 
+     * Suma puntos
+     */
+
+    public GestionReservas() {
+        // despues de crear esto generamos una lista en la que ya si que se pueden
+        // añadir reservas
+        reservas = new ArrayList<>();
+    }
+
+    boolean añadirReserva(String dniCliente, String nombreCliente, int numeroHabitacion, int diasReserva) {
+        /*
+         * Se recorre el ArrayList
+         * 
+         * Se compara el numeroHabitacion
+         */
+        for (Reserva reserva : reservas) {
+            if (reserva.getNumeroHabitacion() == numeroHabitacion) {
+                // Si existe una reserva con ese número → no se puede reservar
+                // no se crea nada simplemente se devuelve false
+                return false;
+            }
+        }
+        /*
+         * “Si la habitación no está reservada, creo un nuevo objeto Reserva, lo añado
+         * al ArrayList y devuelvo true para indicar que la reserva se ha realizado
+         * correctamente.”
+         */
+        // Se crea un objeto Reserva
+        Reserva nuevaReserva = new Reserva(numeroHabitacion, dniCliente, nombreCliente, diasReserva);
+        // Se añade al ArrayList
+        reservas.add(nuevaReserva);
+        // Se devuelve true
+        return true;
+
+    }
+    /*
+     * “El método devuelve el objeto Reserva y es la clase Hotel la encargada de
+     * mostrar su información por consola.”
+     */
+
+    public Reserva BuscarReservaPorDNI(String dniCliente) {
+        // Recorre la lista de reservas
+        for (Reserva reserva : reservas) {
+            // Compara dniCliente
+            if (reserva.getDniCliente().equals(dniCliente)) {
+                /*
+                 * Si coincide:
+                 * 
+                 * Devuelve la Reserva
+                 */
+                return reserva;
+            }
+        }
+        /*
+         * Si no encuentra:
+         * 
+         * Devuelve null
+         */
+        return null;
+        /*
+         * IMPORTANTE!!!!!!!!!!!
+         * La clase Hotel será la encargada de:
+         * 
+         * Comprobar si es null
+         * 
+         * Mostrar los datos
+         */
+    }
+
+    /*
+     * Funcionamiento
+     * 
+     * Buscar la reserva por DNI
+     * 
+     * Si existe:
+     * 
+     * Se elimina del ArrayList
+     * 
+     * Devuelve true
+     * 
+     * Si no existe:
+     * 
+     * Devuelve false
+     * 
+     * 📌 Importante:
+     * Se elimina el objeto Reserva, no solo el DNI.
+     */
+    public boolean cancelarReserva(String dniCliente) {
+        // recorre el arrayList
+        for (Reserva reserva : reservas) {
+            // Se busca por DNI
+            if (reserva.getDniCliente().equals(dniCliente)) {
+                // si es igual se elimina el objeto Reserva
+                reservas.remove(reserva);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /*
+     * Objetivo del método listarReservas()
+     * 
+     * Recorrer todas las reservas almacenadas
+     * 
+     * Mostrar la información de cada una
+     * 
+     * Si no hay reservas, informarlo
+     */
+    public void listarReservas() {
+        // Comprobar si la lista está vacía
+        if (reservas.isEmpty()) {
+            System.out.println("No hay reservas registradas.");
+            return;
+        }
+        /*
+         * Explicación
+         * 
+         * isEmpty() → devuelve true si la lista no tiene elementos
+         * 
+         * return → evita seguir ejecutando el método
+         */
+        for (Reserva reserva : reservas) {
+            System.out.println("---------------------------");
+            System.out.println("Habitación: " + reserva.getNumeroHabitacion());
+            System.out.println("Cliente: " + reserva.getNombreCliente());
+            System.out.println("DNI: " + reserva.getDniCliente());
+            System.out.println("Días de reserva: " + reserva.getDiasReserva());
+            System.out.println("Precio total: " + reserva.precioTotal() + " €");
+
+        }
+
+    }
+
+}
