@@ -40,7 +40,7 @@ public class Hotel {
             System.out.println("0.Salir del menu");
             System.out.println("----------------------------------------------");
             // pedimos que introduzca la funcion que quiere realizar el usuario
-            System.out.println("Introduce la opcion: ");
+            System.out.println("\nIntroduce la opcion: ");
             opcion = entrada.nextInt();
             entrada.nextLine();
 
@@ -51,7 +51,6 @@ public class Hotel {
 
                     System.out.print("\nNombre del cliente: ");
                     String nombre = entrada.nextLine();
-                    entrada.nextLine();
 
                     System.out.print("\nNúmero de habitación: ");
                     int numHab = entrada.nextInt();
@@ -62,7 +61,9 @@ public class Hotel {
                     entrada.nextLine();
 
                     if (gestion.añadirReserva(dni, nombre, numHab, dias)) {
+                        System.out.println("----------------------------");
                         System.out.println("Reserva realizada con éxito");
+                        System.out.println("----------------------------");
                     } else {
                         System.out.println("La habitación ya está ocupada");
                     }

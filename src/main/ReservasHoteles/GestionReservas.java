@@ -170,14 +170,18 @@ public class GestionReservas {
          * 
          * return → evita seguir ejecutando el método
          */
+        int numeroReserva = 1;
         for (Reserva reserva : reservas) {
+            System.out.println("---------------------------");
+            System.out.println("==== Reserva numero " + numeroReserva + " ====");
             System.out.println("---------------------------");
             System.out.println("Habitación: " + reserva.getNumeroHabitacion());
             System.out.println("Cliente: " + reserva.getNombreCliente());
             System.out.println("DNI: " + reserva.getDniCliente());
             System.out.println("Días de reserva: " + reserva.getDiasReserva());
-            System.out.println("Precio total: " + reserva.precioTotal() + " €");
+            System.out.println(String.format("Precio total: %.2f", reserva.precioTotal()));
 
+            numeroReserva++;
         }
 
     }
