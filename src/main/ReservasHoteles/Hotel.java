@@ -46,16 +46,17 @@ public class Hotel {
 
             switch (opcion) {
                 case 1:
+                    System.out.println("----------------------------");
                     System.out.print("\nDNI del cliente: ");
                     String dni = entrada.nextLine();
-
+                    System.out.println("----------------------------");
                     System.out.print("\nNombre del cliente: ");
                     String nombre = entrada.nextLine();
-
+                    System.out.println("----------------------------");
                     System.out.print("\nNúmero de habitación: ");
                     int numHab = entrada.nextInt();
                     entrada.nextLine();
-
+                    System.out.println("----------------------------");
                     System.out.print("\nDías de reserva: ");
                     int dias = entrada.nextInt();
                     entrada.nextLine();
@@ -65,30 +66,42 @@ public class Hotel {
                         System.out.println("Reserva realizada con éxito");
                         System.out.println("----------------------------");
                     } else {
+                        System.out.println("----------------------------");
                         System.out.println("La habitación ya está ocupada");
+                        System.out.println("----------------------------");
                     }
 
                     break;
                 case 2:
+                    System.out.println("----------------------------");
                     System.out.print("Introduce el DNI: ");
                     dni = entrada.nextLine();
+                    System.out.println("------------------------");
 
                     Reserva reserva = gestion.BuscarReservaPorDNI(dni);
                     if (reserva != null) {
-                        System.out.println(reserva);
+                        gestion.mostrarReserva(dni);
                     } else {
+                        System.out.println("----------------------------");
                         System.out.println("No existe ninguna reserva con ese DNI");
+                        System.out.println("----------------------------");
                     }
 
                     break;
                 case 3:
+                    System.out.println("----------------------------");
                     System.out.print("Introduce el DNI: ");
+                    System.out.println("----------------------------");
                     dni = entrada.nextLine();
 
                     if (gestion.cancelarReserva(dni)) {
+                        System.out.println("----------------------------");
                         System.out.println("Reserva cancelada correctamente");
+                        System.out.println("----------------------------");
                     } else {
+                        System.out.println("----------------------------");
                         System.out.println("No se encontró ninguna reserva con ese DNI");
+                        System.out.println("----------------------------");
                     }
 
                     break;
@@ -97,7 +110,9 @@ public class Hotel {
                     break;
 
                 case 0:
+                    System.out.println("----------------------------");
                     System.out.println("Saliendo del programa ...");
+                    System.out.println("----------------------------");
                     break;
             }
             // ejecutar opción

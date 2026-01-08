@@ -52,12 +52,13 @@ public class GestionReservas {
      */
 
     public GestionReservas() {
-        // despues de crear esto generamos una lista en la que ya si que se pueden
+        // despues de crear este constructor vacio generamos una lista en la que ya si
+        // que se pueden
         // añadir reservas
         reservas = new ArrayList<>();
     }
 
-    boolean añadirReserva(String dniCliente, String nombreCliente, int numeroHabitacion, int diasReserva) {
+    public boolean añadirReserva(String dniCliente, String nombreCliente, int numeroHabitacion, int diasReserva) {
         /*
          * Se recorre el ArrayList
          * 
@@ -71,17 +72,25 @@ public class GestionReservas {
             }
         }
         /*
-         * “Si la habitación no está reservada, creo un nuevo objeto Reserva, lo añado
-         * al ArrayList y devuelvo true para indicar que la reserva se ha realizado
-         * correctamente.”
+         * Se comprueba si el DNI del cliente tiene alguna reserva y en el caso de que
+         * la tenga
+         * devuelve falso ya que su DNI ya aparece en la lista de reservas
          */
+        if (BuscarReservaPorDNI(dniCliente) != null) {
+            return false;
+        }
+
         // Se crea un objeto Reserva
         Reserva nuevaReserva = new Reserva(numeroHabitacion, dniCliente, nombreCliente, diasReserva);
         // Se añade al ArrayList
         reservas.add(nuevaReserva);
         // Se devuelve true
         return true;
-
+        /*
+         * “Si la habitación no está reservada, creo un nuevo objeto Reserva, lo añado
+         * al ArrayList y devuelvo true para indicar que la reserva se ha realizado
+         * correctamente.”
+         */
     }
     /*
      * “El método devuelve el objeto Reserva y es la clase Hotel la encargada de
@@ -184,6 +193,26 @@ public class GestionReservas {
             numeroReserva++;
         }
 
+    }
+
+    public void mostrarReserva(String dniCliente) {
+        // Busca la reserva por DNI
+        Reserva reserva = BuscarReservaPorDNI(dniCliente);
+
+        // Comprueba si la reserva existe
+        if (reserva != null) {
+            System.out.println("---------------------------");
+            System.out.println("==== RESERVA ENCONTRADA ====");
+            System.out.println("---------------------------");
+            System.out.println("Habitación: " + reserva.getNumeroHabitacion());
+            System.out.println("Cliente: " + reserva.getNombreCliente());
+            System.out.println("DNI: " + reserva.getDniCliente());
+            System.out.println("Días de reserva: " + reserva.getDiasReserva());
+            System.out.println(String.format("Precio total: %.2f \u20AC", reserva.precioTotal()));
+            System.out.println("---------------------------");
+        } else {
+            System.out.println("No existe ninguna reserva con ese DNI");
+        }
     }
 
 }
